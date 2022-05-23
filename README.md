@@ -1,6 +1,7 @@
 # mars-exp-backend
 
 ### FrontEnd Repo Link: https://github.com/resign-simple/mars-exp-frontend
+### ERD Link: https://www.erdcloud.com/d/hFeFgMScfsatd2WRi
 
 ### Member & Role
 |Member|Role|
