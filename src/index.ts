@@ -1,4 +1,6 @@
 import express, {Request, Response} from 'express'
+import {ApolloServer, gql} from "apollo-server-express";
+import {ApolloServerPluginLandingPageGraphQLPlayground} from "apollo-server-core";
 
 /**
  * * 셋팅 참조 링크
@@ -6,12 +8,39 @@ import express, {Request, Response} from 'express'
  */
 const app = express()
 
+// * ====== RestAPI ====== * //
 app.get('/', (req: Request, res: Response) => {res.send('Hello World!')})
 
-app.listen('3000', () => {
-    console.log(`
-  ################################################
-  🛡️  Server listening on port: 3000🛡️
-  ################################################  
-    `)
+
+// * ====== Graphql 테스트용 코드(삭제 예정) ====== * //
+const typeDefs = gql`
+  type Lang {
+    id: Int,
+    name: String! 
+  }
+  type Query {
+    getLangs(name: String): [Lang]
+  }
+`
+const langs = [{
+    id: 0,
+    name: 'Node'
+}, {
+    id: 1,
+    name: 'Pythton'
+}]
+
+const resolvers = {
+    Query: {
+        getLangs: () => langs
+    }
+}
+
+// * ====== Graphql Apollo Server 셋팅 ====== * //
+const server = new ApolloServer({ typeDefs, resolvers, plugins: [
+        ApolloServerPluginLandingPageGraphQLPlayground() // playground(https://www.apollographql.com/docs/apollo-server/migration/)
+    ] });
+server.start().then(() => {
+    server.applyMiddleware({ app });
+    app.listen({port: 8080}, () => console.log(`Server ready at http://localhost:${8080}${server.graphqlPath}`));
 })
