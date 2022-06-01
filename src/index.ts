@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { ApolloServer, gql } from "apollo-server-express";
+import { ApolloServer } from "apollo-server-express";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 
 /**
@@ -16,37 +16,8 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Hello World!");
 });
 
-// * ====== Graphql 테스트용 코드(삭제 예정) ====== * //
-const typeDefs = gql`
-  type Lang {
-    id: Int
-    name: String!
-  }
-  type Query {
-    getLangs(name: String): [Lang]
-  }
-`;
-const langs = [
-  {
-    id: 0,
-    name: "Node",
-  },
-  {
-    id: 1,
-    name: "Pythton",
-  },
-];
-
-const resolvers = {
-  Query: {
-    getLangs: () => langs,
-  },
-};
-
 // * ====== Graphql Apollo Server 셋팅 ====== * //
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
   plugins: [
     ApolloServerPluginLandingPageGraphQLPlayground(), // playground 셋팅 방법: https://www.apollographql.com/docs/apollo-server/migration/
   ],
