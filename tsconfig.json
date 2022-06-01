@@ -98,8 +98,9 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false
 
-/* Skip type checking all .d.ts files. */
+    /* Skip type checking all .d.ts files. */
   }
 }
